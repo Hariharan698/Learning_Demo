@@ -57,7 +57,6 @@ export default function CertModal({ onClose, user }) {
                   </div>
                   <button
                     className="cert-download-btn"
-<<<<<<< HEAD
                     onClick={() => {
                       showToast(`⬇️ Generating certificate for "${cert.title.slice(0,30)}…"`, 'success');
                       
@@ -83,20 +82,13 @@ export default function CertModal({ onClose, user }) {
                         link.click();
                       });
                     }}
-=======
-                    onClick={() => showToast(`⬇️ Downloading "${cert.title.slice(0,30)}…"`, 'success')}
->>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                       <polyline points="7 10 12 15 17 10"/>
                       <line x1="12" y1="15" x2="12" y2="3"/>
                     </svg>
-<<<<<<< HEAD
                     Download Certificate
-=======
-                    Download PDF
->>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                   </button>
                 </div>
               ))}

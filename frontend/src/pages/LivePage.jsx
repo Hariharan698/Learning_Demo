@@ -3,13 +3,13 @@
 // ============================================================
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFetch }        from '../hooks/useFetch.js';
-import { useApp }          from '../context/AppContext.jsx';
-import SessionCard         from '../components/SessionCard.jsx';
-import VideoPreviewModal   from '../components/VideoPreviewModal.jsx';
+import { useFetch } from '../hooks/useFetch.js';
+import { useApp } from '../context/AppContext.jsx';
+import SessionCard from '../components/SessionCard.jsx';
+import VideoPreviewModal from '../components/VideoPreviewModal.jsx';
 
-const TOPICS = ['System Design','Generative AI','Frontend','Mobile Dev','DevOps & Cloud','Data Science','Cyber Security','Business'];
-const LEVELS = ['beginner','intermediate','advanced'];
+const TOPICS = ['System Design', 'Generative AI', 'Frontend', 'Mobile Dev', 'DevOps & Cloud', 'Data Science', 'Cyber Security', 'Business'];
+const LEVELS = ['beginner', 'intermediate', 'advanced'];
 
 // Static live sessions with realistic (low-to-medium) viewer counts
 const STATIC_SESSIONS = [
@@ -23,8 +23,8 @@ const STATIC_SESSIONS = [
     tags: ['System Design', 'Microservices', 'CAP Theorem'],
     videoUrl: 'https://www.youtube.com/watch?v=i53Gi_K3o7I',
     overview: 'Kiran breaks down how Twitter handles 500M+ tweets per day. Covers timeline generation with fanout, sharding strategies, Kafka streaming and CDN for media.',
-    topics: ['Fanout-on-write vs fanout-on-read','Database sharding & consistent hashing','Redis cache for hot timelines','Kafka event streaming','Global CDN for media'],
-    insights: ['Twitter uses a hybrid fanout model.','Read replicas and WAL are critical for consistency.','Tweet ID encodes timestamp, shard ID, and sequence.'],
+    topics: ['Fanout-on-write vs fanout-on-read', 'Database sharding & consistent hashing', 'Redis cache for hot timelines', 'Kafka event streaming', 'Global CDN for media'],
+    insights: ['Twitter uses a hybrid fanout model.', 'Read replicas and WAL are critical for consistency.', 'Tweet ID encodes timestamp, shard ID, and sequence.'],
   },
   {
     _id: 'ls2',
@@ -36,8 +36,8 @@ const STATIC_SESSIONS = [
     tags: ['LangChain', 'RAG', 'ChromaDB', 'OpenAI'],
     videoUrl: 'https://www.youtube.com/watch?v=ySus5ZS0b94',
     overview: 'Rahul demonstrates how to build a production-grade RAG pipeline to answer questions from PDFs. Covers chunking, vector embeddings, retrieval ranking and FastAPI deployment.',
-    topics: ['Document ingestion & text chunking','Embeddings with OpenAI Ada-002','ChromaDB vector store','Chain-of-thought retrieval','FastAPI + Docker deploy'],
-    insights: ['Chunk size of 512 tokens with 50-token overlap is ideal.','HyDE can improve recall by 30%.','Combine BM25 sparse with dense embeddings.'],
+    topics: ['Document ingestion & text chunking', 'Embeddings with OpenAI Ada-002', 'ChromaDB vector store', 'Chain-of-thought retrieval', 'FastAPI + Docker deploy'],
+    insights: ['Chunk size of 512 tokens with 50-token overlap is ideal.', 'HyDE can improve recall by 30%.', 'Combine BM25 sparse with dense embeddings.'],
   },
   {
     _id: 'ls3',
@@ -49,8 +49,8 @@ const STATIC_SESSIONS = [
     tags: ['React 19', 'Server Components', 'Next.js 15'],
     videoUrl: 'https://www.youtube.com/watch?v=Sklc_fQBmcs',
     overview: 'Priya walks through the new mental model in React 19 — server components, server actions, and the transition from client-centric to server-centric rendering.',
-    topics: ['Server vs Client components','Server Actions: mutations without API routes','Streaming and Suspense','Next.js 15 caching strategies','Migration from React 18'],
-    insights: ['Server components reduce bundle size dramatically.','Forms can call server actions with the action prop.','The new use hook unifies promises and context.'],
+    topics: ['Server vs Client components', 'Server Actions: mutations without API routes', 'Streaming and Suspense', 'Next.js 15 caching strategies', 'Migration from React 18'],
+    insights: ['Server components reduce bundle size dramatically.', 'Forms can call server actions with the action prop.', 'The new use hook unifies promises and context.'],
   },
   {
     _id: 'ls4',
@@ -62,8 +62,8 @@ const STATIC_SESSIONS = [
     tags: ['Flutter', 'Animations', 'CustomPainter', 'Lottie'],
     videoUrl: 'https://www.youtube.com/watch?v=VPvVD8t02U8',
     overview: 'Divya demonstrates three levels of Flutter animations — Hero transitions, Lottie JSON animations, and low-level CustomPainter for pixel-perfect effects.',
-    topics: ['Implicit vs explicit animations','Hero & page route transitions','Lottie JSON-based animations','CustomPainter & Canvas API','Performance: jank detection'],
-    insights: ['Use RepaintBoundary to isolate heavy animation widgets.','Lottie files are 95% smaller than GIFs.','The Ticker class is the heartbeat of all animations.'],
+    topics: ['Implicit vs explicit animations', 'Hero & page route transitions', 'Lottie JSON-based animations', 'CustomPainter & Canvas API', 'Performance: jank detection'],
+    insights: ['Use RepaintBoundary to isolate heavy animation widgets.', 'Lottie files are 95% smaller than GIFs.', 'The Ticker class is the heartbeat of all animations.'],
   },
   {
     _id: 'ls5',
@@ -75,8 +75,8 @@ const STATIC_SESSIONS = [
     tags: ['Kubernetes', 'Debugging', 'Observability', 'Helm'],
     videoUrl: 'https://www.youtube.com/watch?v=X48VuDVv0do',
     overview: 'Vikram replays five real Kubernetes production incidents and walks through kubectl commands, log analysis, and Prometheus queries to diagnose each.',
-    topics: ['CrashLoopBackOff: common causes','OOMKilled: tuning memory limits','Pod pending: taints & tolerations','DNS resolution failures','Prometheus + Grafana dashboards'],
-    insights: ['80% of K8s issues trace to misconfigured resource limits.','Always set liveness and readiness probes.','Use kubectl debug for distroless images.'],
+    topics: ['CrashLoopBackOff: common causes', 'OOMKilled: tuning memory limits', 'Pod pending: taints & tolerations', 'DNS resolution failures', 'Prometheus + Grafana dashboards'],
+    insights: ['80% of K8s issues trace to misconfigured resource limits.', 'Always set liveness and readiness probes.', 'Use kubectl debug for distroless images.'],
   },
   {
     _id: 'ls6',
@@ -88,8 +88,8 @@ const STATIC_SESSIONS = [
     tags: ['Plotly', 'Dash', 'Python', 'Data Viz'],
     videoUrl: 'https://www.youtube.com/watch?v=LHBE6Q9XlzI',
     overview: 'Ananya builds a complete real-time analytics dashboard from scratch using Plotly Express and Dash, then deploys it to Heroku in under 10 minutes.',
-    topics: ['Plotly Express vs Graph Objects','Dash layout components','Callbacks: linking inputs to charts','Interval component for live polling','One-click deploy to Heroku'],
-    insights: ['Plotly outputs interactive HTML natively.','Use dcc.Store to share state between callbacks.','Aggregate data server-side before sending to browser.'],
+    topics: ['Plotly Express vs Graph Objects', 'Dash layout components', 'Callbacks: linking inputs to charts', 'Interval component for live polling', 'One-click deploy to Heroku'],
+    insights: ['Plotly outputs interactive HTML natively.', 'Use dcc.Store to share state between callbacks.', 'Aggregate data server-side before sending to browser.'],
   },
   {
     _id: 'ls7',
@@ -101,8 +101,8 @@ const STATIC_SESSIONS = [
     tags: ['OWASP', 'Security', 'Penetration Testing'],
     videoUrl: 'https://www.youtube.com/watch?v=3Kq1MIfTWCE',
     overview: 'Suresh walks through the OWASP Top 10 vulnerabilities with live demonstrations, showing how attackers exploit them and how to defend your applications.',
-    topics: ['SQL Injection & XSS','Broken Authentication','Security Misconfiguration','Using tools: Burp Suite','Defensive coding patterns'],
-    insights: ['70% of web breaches involve OWASP Top 10 flaws.','Input validation prevents most injection attacks.','Always use parameterized queries.'],
+    topics: ['SQL Injection & XSS', 'Broken Authentication', 'Security Misconfiguration', 'Using tools: Burp Suite', 'Defensive coding patterns'],
+    insights: ['70% of web breaches involve OWASP Top 10 flaws.', 'Input validation prevents most injection attacks.', 'Always use parameterized queries.'],
   },
   {
     _id: 'ls8',
@@ -114,8 +114,8 @@ const STATIC_SESSIONS = [
     tags: ['Product Management', 'Roadmap', 'Agile'],
     videoUrl: 'https://www.youtube.com/watch?v=64oxP6Klb20',
     overview: 'Meera takes you from raw idea to a structured product roadmap using Jobs-to-be-Done and OKR frameworks. Practical templates included.',
-    topics: ['Jobs-to-be-Done framework','Priority matrices','OKR goal setting','Writing user stories','Stakeholder alignment'],
-    insights: ['Start with the problem, not the solution.','OKRs align teams around outcomes, not outputs.','User stories without acceptance criteria fail 60% of time.'],
+    topics: ['Jobs-to-be-Done framework', 'Priority matrices', 'OKR goal setting', 'Writing user stories', 'Stakeholder alignment'],
+    insights: ['Start with the problem, not the solution.', 'OKRs align teams around outcomes, not outputs.', 'User stories without acceptance criteria fail 60% of time.'],
   },
 ];
 
@@ -124,10 +124,10 @@ export default function LivePage() {
   const { showToast, user } = useApp();
   const [topicFilter, setTopicFilter] = useState([]);
   const [levelFilter, setLevelFilter] = useState([]);
-  const [selected,    setSelected]    = useState(null);
-  const [preview,     setPreview]     = useState(null); // { title, videoUrl }
+  const [selected, setSelected] = useState(null);
+  const [preview, setPreview] = useState(null); // { title, videoUrl }
 <<<<<<< HEAD
-  const [showSurvey,  setShowSurvey]  = useState(false);
+  const [showSurvey, setShowSurvey] = useState(false);
   const [pendingSession, setPendingSession] = useState(null);
   const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false);
 =======
@@ -158,8 +158,8 @@ export default function LivePage() {
     } else {
       showToast(
         s.status === 'live'
-          ? `🔴 Joining "${s.title.slice(0,30)}…"`
-          : `✅ Registered for "${s.title.slice(0,30)}…"`,
+          ? `🔴 Joining "${s.title.slice(0, 30)}…"`
+          : `✅ Registered for "${s.title.slice(0, 30)}…"`,
         'success'
       );
     }
@@ -173,7 +173,7 @@ export default function LivePage() {
   const sessions = useMemo(() => {
     return allSessions.filter(s => {
       if (topicFilter.length && !topicFilter.includes(s.topicLabel)) return false;
-      if (levelFilter.length && !levelFilter.includes(s.level))      return false;
+      if (levelFilter.length && !levelFilter.includes(s.level)) return false;
       return true;
     });
   }, [allSessions, topicFilter, levelFilter]);
@@ -241,18 +241,18 @@ export default function LivePage() {
 
           <div className="live-sessions-list" id="live-sessions-list" role="list">
             {loading ? (
-              Array.from({length:4}).map((_,i) => (
+              Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} style={{
-                  height:160, background:'var(--bg-surface)',
-                  borderRadius:'var(--radius-lg)', border:'1px solid var(--border-subtle)',
-                  marginBottom:16,
-                }}/>
+                  height: 160, background: 'var(--bg-surface)',
+                  borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)',
+                  marginBottom: 16,
+                }} />
               ))
             ) : sessions.length === 0 ? (
-              <div style={{ textAlign:'center', padding:'var(--space-16)', color:'var(--text-muted)' }}>
-                <div style={{ fontSize:'3rem', marginBottom:16 }}>📭</div>
-                <p style={{ fontWeight:600 }}>No sessions match your filters</p>
-                <button className="btn btn-ghost btn-sm" style={{ marginTop:12 }} onClick={resetFilters}>
+              <div style={{ textAlign: 'center', padding: 'var(--space-16)', color: 'var(--text-muted)' }}>
+                <div style={{ fontSize: '3rem', marginBottom: 16 }}>📭</div>
+                <p style={{ fontWeight: 600 }}>No sessions match your filters</p>
+                <button className="btn btn-ghost btn-sm" style={{ marginTop: 12 }} onClick={resetFilters}>
                   Reset Filters
                 </button>
               </div>
@@ -263,15 +263,15 @@ export default function LivePage() {
 <<<<<<< HEAD
                   onClick={() => setSelected(s)}
 =======
-                  onClick={() => { 
-                    setSelected(s); 
+                  onClick={() => {
+                    setSelected(s);
                     if (s.videoUrl) {
                       if (!user) {
                         showToast('Please sign in to watch previews', 'error');
                         navigate('/login');
                         return;
                       }
-                      setPreview({ title: s.title, videoUrl: s.videoUrl }); 
+                      setPreview({ title: s.title, videoUrl: s.videoUrl });
                     }
                   }}
 >>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
@@ -297,8 +297,8 @@ export default function LivePage() {
           <div className="ai-sidebar-header">
             <div className="ai-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/>
-                <circle cx="19" cy="5" r="3" fill="var(--accent-1)"/>
+                <path d="M12 2a10 10 0 1 0 10 10" /><path d="M12 6v6l4 2" />
+                <circle cx="19" cy="5" r="3" fill="var(--accent-1)" />
               </svg>
             </div>
             <h3>AI Session Summary</h3>
@@ -338,30 +338,34 @@ export default function LivePage() {
       </div>
 
 <<<<<<< HEAD
-      {/* Live Session Survey Modal */}
-      {showSurvey && (
-        <SurveyModal 
-          user={user}
-          onCancel={() => setShowSurvey(false)}
-          onComplete={(data) => {
-            setHasCompletedSurvey(true);
-            setShowSurvey(false);
-            if (pendingSession) proceedToSession(pendingSession);
-          }}
-        />
-      )}
+  {/* Live Session Survey Modal */ }
+  {
+    showSurvey && (
+      <SurveyModal
+        user={user}
+        onCancel={() => setShowSurvey(false)}
+        onComplete={(data) => {
+          setHasCompletedSurvey(true);
+          setShowSurvey(false);
+          if (pendingSession) proceedToSession(pendingSession);
+        }}
+      />
+    )
+  }
 
 =======
 >>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
-      {/* Video preview modal */}
-      {preview && (
-        <VideoPreviewModal
-          title={preview.title}
-          videoUrl={preview.videoUrl}
-          onClose={() => setPreview(null)}
-        />
-      )}
-    </section>
+  {/* Video preview modal */ }
+  {
+    preview && (
+      <VideoPreviewModal
+        title={preview.title}
+        videoUrl={preview.videoUrl}
+        onClose={() => setPreview(null)}
+      />
+    )
+  }
+    </section >
   );
 }
 
@@ -380,7 +384,7 @@ function SurveyModal({ user, onCancel, onComplete }) {
     if (!formData.name.trim()) return setError('Name is required');
     if (!/^\d{10}$/.test(formData.mobile)) return setError('Please enter a valid 10-digit mobile number');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return setError('Please enter a valid email address');
-    
+
     onComplete(formData);
   };
 
@@ -407,10 +411,10 @@ function SurveyModal({ user, onCancel, onComplete }) {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '6px', fontWeight: 600 }}>FULL NAME</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={formData.name}
-              onChange={e => setFormData({...formData, name: e.target.value})}
+              onChange={e => setFormData({ ...formData, name: e.target.value })}
               placeholder="Enter your name"
               style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-subtle)', color: '#fff', outline: 'none' }}
             />
@@ -418,11 +422,11 @@ function SurveyModal({ user, onCancel, onComplete }) {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '6px', fontWeight: 600 }}>MOBILE NUMBER (10 DIGITS)</label>
-            <input 
-              type="tel" 
+            <input
+              type="tel"
               maxLength="10"
               value={formData.mobile}
-              onChange={e => setFormData({...formData, mobile: e.target.value.replace(/\D/g, '')})}
+              onChange={e => setFormData({ ...formData, mobile: e.target.value.replace(/\D/g, '') })}
               placeholder="e.g. 9876543210"
               style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-subtle)', color: '#fff', outline: 'none' }}
             />
@@ -430,10 +434,10 @@ function SurveyModal({ user, onCancel, onComplete }) {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '6px', fontWeight: 600 }}>EMAIL ADDRESS</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               value={formData.email}
-              onChange={e => setFormData({...formData, email: e.target.value})}
+              onChange={e => setFormData({ ...formData, email: e.target.value })}
               placeholder="your@email.com"
               style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-subtle)', color: '#fff', outline: 'none' }}
             />
@@ -442,12 +446,12 @@ function SurveyModal({ user, onCancel, onComplete }) {
           {error && <div style={{ color: '#ff4d4d', fontSize: '0.85rem', textAlign: 'center' }}>{error}</div>}
 
           <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
-            <button 
+            <button
               type="button"
               onClick={onCancel}
               style={{ flex: 1, padding: '12px', borderRadius: '10px', background: 'transparent', border: '1px solid var(--border-subtle)', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
             >Cancel</button>
-            <button 
+            <button
               type="submit"
               style={{ flex: 2, padding: '12px', borderRadius: '10px', background: 'var(--accent-1)', border: 'none', color: '#fff', fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 15px var(--accent-glow)' }}
             >Submit & Join</button>
@@ -480,7 +484,7 @@ function AISummary({ session, onJoin }) {
           background: 'rgba(239,68,68,0.12)', borderRadius: '999px',
           fontSize: '0.78rem', fontWeight: 600, color: 'hsl(0,75%,60%)',
         }}>
-          <span style={{ width:7, height:7, borderRadius:'50%', background:'hsl(0,75%,60%)', display:'inline-block', animation:'pulse 1.5s infinite' }}/>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'hsl(0,75%,60%)', display: 'inline-block', animation: 'pulse 1.5s infinite' }} />
           {session.viewers} watching now
         </div>
       )}
@@ -490,7 +494,7 @@ function AISummary({ session, onJoin }) {
 
       <div className="ai-section-label">Key Topics Covered</div>
       <div className="ai-topics-list">
-        {session.topics?.map((t,i) => (
+        {session.topics?.map((t, i) => (
           <div key={i} className="ai-topic-item">
             <div className="ai-topic-dot"></div>
             {t}
@@ -500,9 +504,9 @@ function AISummary({ session, onJoin }) {
 
       <div className="ai-section-label">Instructor Insights</div>
       <div className="ai-insights-list">
-        {session.insights?.map((ins,i) => (
+        {session.insights?.map((ins, i) => (
           <div key={i} className="ai-insight-item">
-            <div className="ai-insight-num">{i+1}</div>
+            <div className="ai-insight-num">{i + 1}</div>
             <span>{ins}</span>
           </div>
         ))}

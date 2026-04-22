@@ -1,12 +1,8 @@
 // ============================================================
 //  VideoPreviewModal – 3-sec YouTube preview popup
 // ============================================================
-<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from 'react';
 import { useApp } from '../context/AppContext.jsx';
-=======
-import React, { useEffect, useRef } from 'react';
->>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
 /**
  * Extracts YouTube video ID from a youtube.com URL
@@ -16,13 +12,12 @@ function getYouTubeId(url = '') {
   return match ? match[1] : null;
 }
 
-<<<<<<< HEAD
 export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, instructor }) {
   const overlayRef = useRef(null);
   const playerRef = useRef(null);
   const { showToast, updateUserProgress, addCertificate } = useApp();
   const videoId = getYouTubeId(videoUrl);
-  
+
   const [progress, setProgress] = useState(0);
   const [canDownload, setCanDownload] = useState(false);
   const [showNameForm, setShowNameForm] = useState(false);
@@ -45,9 +40,9 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
     const initPlayer = () => {
       playerRef.current = new window.YT.Player('yt-player', {
         videoId: videoId,
-        playerVars: { 
-          autoplay: 1, 
-          modestbranding: 1, 
+        playerVars: {
+          autoplay: 1,
+          modestbranding: 1,
           rel: 0,
           start: 10 // Start a bit into the video for better demo
         },
@@ -62,7 +57,7 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
                 const roundedP = Math.min(Math.round(p * 100) / 100, 100);
                 setProgress(roundedP);
                 if (p >= 85) setCanDownload(true);
-                
+
                 // Track progress in DB/State every 5% increment or at major milestones
                 if (courseId) {
                   updateUserProgress(courseId, roundedP);
@@ -87,11 +82,6 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
       }
     };
   }, [videoId]);
-=======
-export default function VideoPreviewModal({ title, videoUrl, onClose }) {
-  const overlayRef = useRef(null);
-  const videoId = getYouTubeId(videoUrl);
->>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
   // Close on Escape key
   useEffect(() => {
@@ -161,69 +151,71 @@ export default function VideoPreviewModal({ title, videoUrl, onClose }) {
 =======
             }}>▶ PREVIEW</span>
 >>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
-            <span style={{
-              fontSize: '0.9rem', fontWeight: 600,
-              color: 'var(--text-primary, #fff)',
-              maxWidth: '500px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-            }}>{title}</span>
-          </div>
-          <button
-            onClick={onClose}
-            aria-label="Close preview"
-            style={{
-              background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%',
-              width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', color: 'var(--text-primary, #fff)', fontSize: '1.1rem',
-              transition: 'background 0.15s',
-            }}
+          <span style={{
+            fontSize: '0.9rem', fontWeight: 600,
+            color: 'var(--text-primary, #fff)',
+            maxWidth: '500px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}>{title}</span>
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="Close preview"
+          style={{
+            background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%',
+            width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', color: 'var(--text-primary, #fff)', fontSize: '1.1rem',
+            transition: 'background 0.15s',
+          }}
 <<<<<<< HEAD
-          >✕</button>
-        </div>
+        >✕</button>
+      </div>
 
-        {/* Video embed area */}
-        <div style={{ position: 'relative', paddingTop: '56.25%', background: '#000' }}>
-          <div id="yt-player" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></div>
-        </div>
+      {/* Video embed area */}
+      <div style={{ position: 'relative', paddingTop: '56.25%', background: '#000' }}>
+        <div id="yt-player" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></div>
+      </div>
 
-        {/* Footer with Progress and Certificate CTA */}
+      {/* Footer with Progress and Certificate CTA */}
 =======
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+      onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
           >✕</button>
-        </div>
+        </div >
 
-        {/* Video embed */}
-        <div style={{ position: 'relative', paddingTop: '56.25%', background: '#000' }}>
-          {videoId ? (
+    {/* Video embed */ }
+    < div style = {{ position: 'relative', paddingTop: '56.25%', background: '#000' }
+}>
+{
+  videoId?(
             <iframe
-              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&start=10`}
-              title={title}
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              style={{
-                position: 'absolute', inset: 0, width: '100%', height: '100%',
-                border: 'none',
+              src = {`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&start=10`}
+title = { title }
+allow = "autoplay; encrypted-media"
+allowFullScreen
+style = {{
+  position: 'absolute', inset: 0, width: '100%', height: '100%',
+    border: 'none',
               }}
             />
           ) : (
-            <div style={{
-              position: 'absolute', inset: 0,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--text-secondary, #aaa)', flexDirection: 'column', gap: 12,
-            }}>
-              <span style={{ fontSize: '3rem' }}>🎬</span>
-              <span>Preview not available</span>
-            </div>
-          )}
-        </div>
+  <div style={{
+    position: 'absolute', inset: 0,
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    color: 'var(--text-secondary, #aaa)', flexDirection: 'column', gap: 12,
+  }}>
+    <span style={{ fontSize: '3rem' }}>🎬</span>
+    <span>Preview not available</span>
+  </div>
+)}
+        </div >
 
-        {/* Footer CTA */}
+  {/* Footer CTA */ }
 >>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
-        <div style={{
-          padding: '14px 18px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          background: 'var(--bg-surface, #12122a)',
-          borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
+  < div style = {{
+  padding: '14px 18px',
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      background: 'var(--bg-surface, #12122a)',
+        borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
         }}>
 <<<<<<< HEAD
           <div style={{ flex: 1, marginRight: '24px' }}>
@@ -274,131 +266,133 @@ export default function VideoPreviewModal({ title, videoUrl, onClose }) {
             </svg>
             Claim Certificate
           </button>
-        </div>
+        </div >
 
-        {/* Name Prompt Modal Overlay */}
-        {showNameForm && (
-          <div style={{
-            position: 'absolute', inset: 0, zIndex: 100,
-            background: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '40px', animation: 'fadeIn 0.3s ease'
-          }}>
-            {!isGenerating ? (
-              <div style={{
-                background: 'var(--bg-card)', padding: '32px', borderRadius: '24px',
-                width: '100%', maxWidth: '400px', textAlign: 'center',
-                border: '1px solid var(--border-subtle)', boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
-              }}>
-                <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🎓</div>
-                <h3 style={{ marginBottom: '8px', color: '#fff' }}>Congratulations!</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '24px' }}>
-                  Please enter your full name exactly as it should appear on your certificate.
-                </p>
-                <input 
-                  type="text" 
-                  placeholder="Your Full Name"
-                  value={userName}
-                  onChange={e => setUserName(e.target.value)}
-                  style={{
-                    width: '100%', padding: '14px 18px', borderRadius: '12px',
-                    background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-subtle)',
-                    color: '#fff', fontSize: '1rem', marginBottom: '20px', outline: 'none'
-                  }}
-                  autoFocus
-                />
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  <button 
-                    onClick={() => setShowNameForm(false)}
-                    style={{ flex: 1, padding: '12px', borderRadius: '10px', background: 'transparent', border: '1px solid var(--border-subtle)', color: '#fff', cursor: 'pointer' }}
-                  >Cancel</button>
-                  <button 
-                    onClick={() => {
-                      if (userName.trim()) {
-                        setIsGenerating(true);
-                        setTimeout(() => setIsGenerating('done'), 2000);
-                      } else {
-                        showToast('Please enter your name', 'error');
-                      }
-                    }}
-                    style={{ flex: 2, padding: '12px', borderRadius: '10px', background: 'var(--accent-1)', border: 'none', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
-                  >Generate Certificate</button>
-                </div>
-              </div>
-            ) : isGenerating === 'done' ? (
-              <div style={{
-                background: '#fff', padding: '40px', borderRadius: '4px',
-                width: '100%', maxWidth: '600px', position: 'relative',
-                color: '#1a1a2e', boxShadow: '0 30px 60px rgba(0,0,0,0.8)',
-                border: '10px solid #1a1a2e', outline: '1px solid #c5a059', outlineOffset: '-15px'
-              }}>
-                <div style={{ textAlign: 'center', border: '2px solid #c5a059', padding: '30px' }}>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#c5a059', letterSpacing: '4px', marginBottom: '20px' }}>LEARNFLOW ACADEMY</div>
-                  <div style={{ fontSize: '0.8rem', color: '#666', marginBottom: '30px' }}>CERTIFICATE OF COMPLETION</div>
-                  <div style={{ fontSize: '0.9rem', marginBottom: '10px' }}>THIS IS TO CERTIFY THAT</div>
-                  <div style={{ fontSize: '2.4rem', fontWeight: 800, margin: '15px 0', fontFamily: 'serif', color: '#1a1a2e' }}>{userName}</div>
-                  <div style={{ fontSize: '0.9rem', marginBottom: '10px' }}>HAS SUCCESSFULLY COMPLETED THE COURSE</div>
-                  <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a2e', marginBottom: '40px' }}>{title}</div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', padding: '0 40px' }}>
-                    <div style={{ borderTop: '1px solid #1a1a2e', width: '120px', paddingTop: '8px', fontSize: '0.7rem' }}>INSTRUCTOR SIGNATURE</div>
-                    <div style={{ fontSize: '2rem' }}>🏆</div>
-                    <div style={{ borderTop: '1px solid #1a1a2e', width: '120px', paddingTop: '8px', fontSize: '0.7rem' }}>DATE: {new Date().toLocaleDateString()}</div>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => {
-                    showToast('⬇️ Starting your certificate download...', 'success');
-                    
-                    // Save certificate to user profile
-                    addCertificate({ _id: courseId, title, instructor });
-
-                    const canvas = document.createElement('canvas');
-                    canvas.width = 800; canvas.height = 600;
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,800,600);
-                    ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(10,10,780,580);
-                    ctx.fillStyle = '#1a1a2e'; ctx.font = 'bold 40px serif'; ctx.textAlign = 'center';
-                    ctx.fillText('CERTIFICATE OF COMPLETION', 400, 100);
-                    ctx.font = '24px sans-serif'; ctx.fillText('This is to certify that', 400, 200);
-                    ctx.font = 'bold 48px serif'; ctx.fillText(userName, 400, 280);
-                    ctx.font = '24px sans-serif'; ctx.fillText('has completed', 400, 360);
-                    ctx.font = 'bold 32px sans-serif'; ctx.fillText(title, 400, 420);
-                    ctx.font = '18px sans-serif'; ctx.fillText(`Date: ${new Date().toLocaleDateString()}`, 400, 520);
-                    
-                    canvas.toBlob((blob) => {
-                      const url = URL.createObjectURL(blob);
-                      const link = document.createElement('a');
-                      link.href = url;
-                      link.download = `Certificate_${userName.replace(/\s+/g, '_')}.png`;
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                      URL.revokeObjectURL(url);
-                    });
-
-                    setTimeout(() => {
-                      setShowNameForm(false);
-                      onClose(); // Close the whole modal after download
-                    }, 1500);
-                  }}
-                  style={{
-                    position: 'absolute', bottom: '-70px', left: '50%', transform: 'translateX(-50%)',
-                    padding: '12px 30px', borderRadius: '30px', background: 'var(--accent-1)',
-                    color: '#fff', border: 'none', fontWeight: 800, cursor: 'pointer',
-                    boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
-                    whiteSpace: 'nowrap'
-                  }}
-                >DOWNLOAD CERTIFICATE</button>
-              </div>
-            ) : (
-              <div style={{ textAlign: 'center', color: '#fff' }}>
-                <div className="loader" style={{ width: '40px', height: '40px', border: '4px solid #fff', borderTopColor: 'var(--accent-1)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 20px' }}></div>
-                <p>Creating your digital certificate...</p>
-              </div>
-            )
-            }
+  {/* Name Prompt Modal Overlay */ }
+{
+  showNameForm && (
+    <div style={{
+      position: 'absolute', inset: 0, zIndex: 100,
+      background: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(10px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '40px', animation: 'fadeIn 0.3s ease'
+    }}>
+      {!isGenerating ? (
+        <div style={{
+          background: 'var(--bg-card)', padding: '32px', borderRadius: '24px',
+          width: '100%', maxWidth: '400px', textAlign: 'center',
+          border: '1px solid var(--border-subtle)', boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+        }}>
+          <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🎓</div>
+          <h3 style={{ marginBottom: '8px', color: '#fff' }}>Congratulations!</h3>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '24px' }}>
+            Please enter your full name exactly as it should appear on your certificate.
+          </p>
+          <input
+            type="text"
+            placeholder="Your Full Name"
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
+            style={{
+              width: '100%', padding: '14px 18px', borderRadius: '12px',
+              background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-subtle)',
+              color: '#fff', fontSize: '1rem', marginBottom: '20px', outline: 'none'
+            }}
+            autoFocus
+          />
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <button
+              onClick={() => setShowNameForm(false)}
+              style={{ flex: 1, padding: '12px', borderRadius: '10px', background: 'transparent', border: '1px solid var(--border-subtle)', color: '#fff', cursor: 'pointer' }}
+            >Cancel</button>
+            <button
+              onClick={() => {
+                if (userName.trim()) {
+                  setIsGenerating(true);
+                  setTimeout(() => setIsGenerating('done'), 2000);
+                } else {
+                  showToast('Please enter your name', 'error');
+                }
+              }}
+              style={{ flex: 2, padding: '12px', borderRadius: '10px', background: 'var(--accent-1)', border: 'none', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
+            >Generate Certificate</button>
           </div>
-        )}
+        </div>
+      ) : isGenerating === 'done' ? (
+        <div style={{
+          background: '#fff', padding: '40px', borderRadius: '4px',
+          width: '100%', maxWidth: '600px', position: 'relative',
+          color: '#1a1a2e', boxShadow: '0 30px 60px rgba(0,0,0,0.8)',
+          border: '10px solid #1a1a2e', outline: '1px solid #c5a059', outlineOffset: '-15px'
+        }}>
+          <div style={{ textAlign: 'center', border: '2px solid #c5a059', padding: '30px' }}>
+            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#c5a059', letterSpacing: '4px', marginBottom: '20px' }}>LEARNFLOW ACADEMY</div>
+            <div style={{ fontSize: '0.8rem', color: '#666', marginBottom: '30px' }}>CERTIFICATE OF COMPLETION</div>
+            <div style={{ fontSize: '0.9rem', marginBottom: '10px' }}>THIS IS TO CERTIFY THAT</div>
+            <div style={{ fontSize: '2.4rem', fontWeight: 800, margin: '15px 0', fontFamily: 'serif', color: '#1a1a2e' }}>{userName}</div>
+            <div style={{ fontSize: '0.9rem', marginBottom: '10px' }}>HAS SUCCESSFULLY COMPLETED THE COURSE</div>
+            <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a2e', marginBottom: '40px' }}>{title}</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', padding: '0 40px' }}>
+              <div style={{ borderTop: '1px solid #1a1a2e', width: '120px', paddingTop: '8px', fontSize: '0.7rem' }}>INSTRUCTOR SIGNATURE</div>
+              <div style={{ fontSize: '2rem' }}>🏆</div>
+              <div style={{ borderTop: '1px solid #1a1a2e', width: '120px', paddingTop: '8px', fontSize: '0.7rem' }}>DATE: {new Date().toLocaleDateString()}</div>
+            </div>
+          </div>
+          <button
+            onClick={() => {
+              showToast('⬇️ Starting your certificate download...', 'success');
+
+              // Save certificate to user profile
+              addCertificate({ _id: courseId, title, instructor });
+
+              const canvas = document.createElement('canvas');
+              canvas.width = 800; canvas.height = 600;
+              const ctx = canvas.getContext('2d');
+              ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 600);
+              ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(10, 10, 780, 580);
+              ctx.fillStyle = '#1a1a2e'; ctx.font = 'bold 40px serif'; ctx.textAlign = 'center';
+              ctx.fillText('CERTIFICATE OF COMPLETION', 400, 100);
+              ctx.font = '24px sans-serif'; ctx.fillText('This is to certify that', 400, 200);
+              ctx.font = 'bold 48px serif'; ctx.fillText(userName, 400, 280);
+              ctx.font = '24px sans-serif'; ctx.fillText('has completed', 400, 360);
+              ctx.font = 'bold 32px sans-serif'; ctx.fillText(title, 400, 420);
+              ctx.font = '18px sans-serif'; ctx.fillText(`Date: ${new Date().toLocaleDateString()}`, 400, 520);
+
+              canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `Certificate_${userName.replace(/\s+/g, '_')}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+              });
+
+              setTimeout(() => {
+                setShowNameForm(false);
+                onClose(); // Close the whole modal after download
+              }, 1500);
+            }}
+            style={{
+              position: 'absolute', bottom: '-70px', left: '50%', transform: 'translateX(-50%)',
+              padding: '12px 30px', borderRadius: '30px', background: 'var(--accent-1)',
+              color: '#fff', border: 'none', fontWeight: 800, cursor: 'pointer',
+              boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+              whiteSpace: 'nowrap'
+            }}
+          >DOWNLOAD CERTIFICATE</button>
+        </div>
+      ) : (
+        <div style={{ textAlign: 'center', color: '#fff' }}>
+          <div className="loader" style={{ width: '40px', height: '40px', border: '4px solid #fff', borderTopColor: 'var(--accent-1)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 20px' }}></div>
+          <p>Creating your digital certificate...</p>
+        </div>
+      )
+      }
+    </div>
+  )
+}
 =======
           <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary, #aaa)' }}>
             📺 Click outside or press <kbd style={{
@@ -408,9 +402,9 @@ export default function VideoPreviewModal({ title, videoUrl, onClose }) {
           </span>
         </div>
 >>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
-      </div>
+      </div >
 
-      <style>{`
+  <style>{`
         @keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
         @keyframes slideUp { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:translateY(0) } }
 <<<<<<< HEAD
@@ -418,6 +412,6 @@ export default function VideoPreviewModal({ title, videoUrl, onClose }) {
 =======
 >>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
       `}</style>
-    </div>
+    </div >
   );
 }
