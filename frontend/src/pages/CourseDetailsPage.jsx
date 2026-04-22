@@ -2,7 +2,10 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch.js';
 import CourseCard from '../components/CourseCard.jsx';
+<<<<<<< HEAD
 import VideoPreviewModal from '../components/VideoPreviewModal.jsx';
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 import { useApp } from '../context/AppContext.jsx';
 
 const SAMPLE_VIDEOS = [
@@ -17,8 +20,12 @@ const SAMPLE_VIDEOS = [
 export default function CourseDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+<<<<<<< HEAD
   const { showToast, user, addToRecentlyViewed } = useApp();
   const [showVideo, setShowVideo] = React.useState(false);
+=======
+  const { showToast } = useApp();
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   
   const { data: courseData, loading: courseLoading } = useFetch(`/api/courses/${id}`);
   const course = courseData?.data;
@@ -33,6 +40,7 @@ export default function CourseDetailsPage() {
   if (courseLoading) return <div style={{ padding: '100px', textAlign: 'center' }}><h2>Loading...</h2></div>;
   if (!course) return <div style={{ padding: '100px', textAlign: 'center' }}><h2>Course not found</h2></div>;
 
+<<<<<<< HEAD
   // Track as recently viewed
   React.useEffect(() => {
     if (course) addToRecentlyViewed(course);
@@ -49,6 +57,12 @@ export default function CourseDetailsPage() {
     }
     showToast(`🎉 Enrolled in "${course.title.slice(0, 40)}…"`, 'success');
     if (course.price === 0) setShowVideo(true);
+=======
+  const videoId = SAMPLE_VIDEOS[course.title.length % SAMPLE_VIDEOS.length];
+
+  const handleEnroll = () => {
+    showToast(`🎉 Enrolled in "${course.title.slice(0, 40)}…"`, 'success');
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   };
 
   return (
@@ -60,6 +74,7 @@ export default function CourseDetailsPage() {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-6)', marginBottom: 'var(--space-12)' }}>
         {/* Left side: Demo Video */}
         <div style={{ flex: '1 1 600px', backgroundColor: 'var(--bg-surface)', padding: 'var(--space-4)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-subtle)' }}>
+<<<<<<< HEAD
           <div 
             onClick={() => {
               if (!user) {
@@ -90,6 +105,18 @@ export default function CourseDetailsPage() {
                 fontSize: '1.8rem', color: '#000', paddingLeft: '5px'
               }}>▶</div>
             </div>
+=======
+          <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%', backgroundColor: '#000', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-4)' }}>
+            {/* The user can insert their actual dynamic video URL below */}
+            <video 
+              src={videoId}
+              controls
+              autoPlay
+              muted
+              playsInline
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
           </div>
           <h1 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: 'var(--space-2)' }}>{course.title}</h1>
           <p style={{ color: 'var(--text-secondary)' }}>by {course.instructor} • {course.domainLabel}</p>
@@ -152,6 +179,7 @@ export default function CourseDetailsPage() {
           {relatedCourses.map(c => <CourseCard key={c._id} course={c} />)}
         </div>
       )}
+<<<<<<< HEAD
       {showVideo && (
         <VideoPreviewModal
           title={course.title}
@@ -161,6 +189,8 @@ export default function CourseDetailsPage() {
           onClose={() => setShowVideo(false)}
         />
       )}
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
     </section>
   );
 }

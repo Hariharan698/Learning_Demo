@@ -1,8 +1,12 @@
 // ============================================================
 //  VideoPreviewModal – 3-sec YouTube preview popup
 // ============================================================
+<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from 'react';
 import { useApp } from '../context/AppContext.jsx';
+=======
+import React, { useEffect, useRef } from 'react';
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
 /**
  * Extracts YouTube video ID from a youtube.com URL
@@ -12,6 +16,7 @@ function getYouTubeId(url = '') {
   return match ? match[1] : null;
 }
 
+<<<<<<< HEAD
 export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, instructor }) {
   const overlayRef = useRef(null);
   const playerRef = useRef(null);
@@ -82,6 +87,11 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
       }
     };
   }, [videoId]);
+=======
+export default function VideoPreviewModal({ title, videoUrl, onClose }) {
+  const overlayRef = useRef(null);
+  const videoId = getYouTubeId(videoUrl);
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
   // Close on Escape key
   useEffect(() => {
@@ -90,7 +100,11 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
+<<<<<<< HEAD
   // Prevent body scroll
+=======
+  // Prevent body scroll while open
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
@@ -124,7 +138,10 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
         overflow: 'hidden',
         boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
         animation: 'slideUp 0.25s ease',
+<<<<<<< HEAD
         position: 'relative'
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
       }}>
         {/* Header */}
         <div style={{
@@ -139,7 +156,11 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
               fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.06em',
               padding: '3px 8px', borderRadius: '999px',
               background: 'hsl(0,75%,55%)', color: '#fff',
+<<<<<<< HEAD
             }}>▶ LIVE PREVIEW</span>
+=======
+            }}>▶ PREVIEW</span>
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
             <span style={{
               fontSize: '0.9rem', fontWeight: 600,
               color: 'var(--text-primary, #fff)',
@@ -155,6 +176,7 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
               cursor: 'pointer', color: 'var(--text-primary, #fff)', fontSize: '1.1rem',
               transition: 'background 0.15s',
             }}
+<<<<<<< HEAD
           >✕</button>
         </div>
 
@@ -164,12 +186,46 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
         </div>
 
         {/* Footer with Progress and Certificate CTA */}
+=======
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+          >✕</button>
+        </div>
+
+        {/* Video embed */}
+        <div style={{ position: 'relative', paddingTop: '56.25%', background: '#000' }}>
+          {videoId ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&start=10`}
+              title={title}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{
+                position: 'absolute', inset: 0, width: '100%', height: '100%',
+                border: 'none',
+              }}
+            />
+          ) : (
+            <div style={{
+              position: 'absolute', inset: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'var(--text-secondary, #aaa)', flexDirection: 'column', gap: 12,
+            }}>
+              <span style={{ fontSize: '3rem' }}>🎬</span>
+              <span>Preview not available</span>
+            </div>
+          )}
+        </div>
+
+        {/* Footer CTA */}
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
         <div style={{
           padding: '14px 18px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           background: 'var(--bg-surface, #12122a)',
           borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
         }}>
+<<<<<<< HEAD
           <div style={{ flex: 1, marginRight: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary, #aaa)' }}>
@@ -343,12 +399,24 @@ export default function VideoPreviewModal({ title, videoUrl, onClose, courseId, 
             }
           </div>
         )}
+=======
+          <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary, #aaa)' }}>
+            📺 Click outside or press <kbd style={{
+              padding: '1px 5px', borderRadius: 4,
+              background: 'rgba(255,255,255,0.1)', fontSize: '0.78rem',
+            }}>Esc</kbd> to close
+          </span>
+        </div>
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
       </div>
 
       <style>{`
         @keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
         @keyframes slideUp { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:translateY(0) } }
+<<<<<<< HEAD
         @keyframes spin    { to { transform: rotate(360deg) } }
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
       `}</style>
     </div>
   );

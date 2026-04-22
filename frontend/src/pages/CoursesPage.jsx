@@ -7,6 +7,7 @@ import { useFetch } from '../hooks/useFetch.js';
 import CourseCard   from '../components/CourseCard.jsx';
 import { STATIC_COURSES } from '../data/staticData.js';
 
+<<<<<<< HEAD
 const DOMAIN_IMAGES = {
   webdev:      '/images/domains/webdev.png',
   datascience: '/images/domains/datascience.png',
@@ -27,6 +28,17 @@ const COURSE_TREE = [
   { id:'devops',      label:'DevOps & Cloud',         count:2, children:[{id:'docker-k8s',label:'Docker & Kubernetes',count:1},{id:'aws',label:'AWS',count:1},{id:'cicd',label:'CI/CD Pipelines',count:1}] },
   { id:'cybersec',    label:'Cyber Security',         count:2, children:[{id:'ethical-hack',label:'Ethical Hacking',count:1},{id:'network-sec',label:'Network Security',count:1},{id:'cloud-sec',label:'Cloud Security',count:1}] },
   { id:'business',    label:'Business & Leadership',  count:2, children:[{id:'product-mgmt',label:'Product Management',count:1},{id:'startup',label:'Startup & Growth',count:1},{id:'finance',label:'Finance Basics',count:1}] },
+=======
+const COURSE_TREE = [
+  { id:'webdev',      label:'Web Development',       emoji:'🌐', count:3, children:[{id:'frontend',label:'Frontend',count:2},{id:'backend',label:'Backend',count:1},{id:'fullstack',label:'Full Stack',count:1},{id:'sysdesign',label:'System Design',count:1}] },
+  { id:'datascience', label:'Data Science',           emoji:'📊', count:3, children:[{id:'python-ds',label:'Python & Analytics',count:1},{id:'sql-db',label:'Databases',count:1},{id:'bi-tools',label:'BI & Visualization',count:1},{id:'stats',label:'Statistics',count:1}] },
+  { id:'ai',          label:'AI & Machine Learning',  emoji:'🤖', count:3, children:[{id:'deep-learning',label:'Deep Learning',count:1},{id:'nlp',label:'NLP',count:1},{id:'gen-ai',label:'Generative AI',count:1},{id:'mlops',label:'MLOps',count:1}] },
+  { id:'design',      label:'UI/UX Design',           emoji:'🎨', count:2, children:[{id:'figma',label:'Figma',count:1},{id:'ux-research',label:'UX Research',count:1},{id:'motion',label:'Motion Design',count:1}] },
+  { id:'mobile',      label:'Mobile Development',     emoji:'📱', count:2, children:[{id:'flutter',label:'Flutter',count:1},{id:'react-native',label:'React Native',count:1},{id:'ios-swift',label:'iOS / Swift',count:1}] },
+  { id:'devops',      label:'DevOps & Cloud',         emoji:'☁️', count:2, children:[{id:'docker-k8s',label:'Docker & Kubernetes',count:1},{id:'aws',label:'AWS',count:1},{id:'cicd',label:'CI/CD Pipelines',count:1}] },
+  { id:'cybersec',    label:'Cyber Security',         emoji:'🔐', count:2, children:[{id:'ethical-hack',label:'Ethical Hacking',count:1},{id:'network-sec',label:'Network Security',count:1},{id:'cloud-sec',label:'Cloud Security',count:1}] },
+  { id:'business',    label:'Business & Leadership',  emoji:'💼', count:2, children:[{id:'product-mgmt',label:'Product Management',count:1},{id:'startup',label:'Startup & Growth',count:1},{id:'finance',label:'Finance Basics',count:1}] },
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 ];
 
 export default function CoursesPage() {
@@ -128,9 +140,13 @@ export default function CoursesPage() {
                   onKeyDown={e => e.key === 'Enter' && toggleCat(cat.id)}
                 >
                   <span>
+<<<<<<< HEAD
                     <div className="tree-category-thumb">
                       <img src={DOMAIN_IMAGES[cat.id]} alt="" />
                     </div>
+=======
+                    <span className="tree-category-icon">{cat.emoji}</span>
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                     {cat.label}
                   </span>
                   <div style={{ display:'flex', alignItems:'center', gap:6 }}>

@@ -7,6 +7,7 @@ import { useApp } from '../context/AppContext.jsx';
 import VideoPreviewModal from './VideoPreviewModal.jsx';
 
 const DOMAIN_IMAGES = {
+<<<<<<< HEAD
   webdev:      '/images/domains/webdev.png',
   datascience: '/images/domains/datascience.png',
   design:      '/images/domains/design.png',
@@ -15,6 +16,16 @@ const DOMAIN_IMAGES = {
   ai:          '/images/domains/ai.png',
   business:    '/images/domains/business.png',
   cybersec:    '/images/domains/cybersec.png',
+=======
+  'webdev': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80',
+  'datascience': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80',
+  'ai': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80',
+  'design': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=400&q=80',
+  'mobile': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=400&q=80',
+  'devops': 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=400&q=80',
+  'cybersec': 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=400&q=80',
+  'business': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80',
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 };
 
 function starRating(rating) {
@@ -26,7 +37,11 @@ function starRating(rating) {
 
 export default function CourseCard({ course }) {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const { showToast, user, addToRecentlyViewed } = useApp();
+=======
+  const { showToast, user } = useApp();
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   const [showPreview, setShowPreview] = useState(false);
 
   const {
@@ -39,7 +54,10 @@ export default function CourseCard({ course }) {
     ? Math.round((1 - price / originalPrice) * 100) : 0;
 
   const handleCardClick = () => {
+<<<<<<< HEAD
     addToRecentlyViewed(course); // Track as viewed
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
     if (!user) {
       showToast('Please sign in to watch previews', 'error');
       navigate('/login');
@@ -54,18 +72,24 @@ export default function CourseCard({ course }) {
 
   const handleEnroll = (e) => {
     e.stopPropagation();
+<<<<<<< HEAD
     addToRecentlyViewed(course); // Track as enrolled
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
     if (!user) {
       showToast('Please sign in to enroll', 'error');
       navigate('/login');
       return;
     }
     showToast(`🎉 Enrolled in "${title.slice(0, 40)}…"`, 'success');
+<<<<<<< HEAD
     
     // If free course, open the video preview immediately
     if (price === 0 && videoUrl) {
       setShowPreview(true);
     }
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   };
 
   return (
@@ -158,8 +182,11 @@ export default function CourseCard({ course }) {
         <VideoPreviewModal
           title={title}
           videoUrl={videoUrl}
+<<<<<<< HEAD
           courseId={_id}
           instructor={instructor}
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
           onClose={() => setShowPreview(false)}
         />
       )}

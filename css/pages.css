@@ -207,17 +207,29 @@
 ══════════════════════════════════════════════════ */
 .domain-grid {
   display: grid;
+<<<<<<< HEAD
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: var(--space-5);
+=======
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 }
 
 .domain-card {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
+=======
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   cursor: pointer;
+<<<<<<< HEAD
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   position: relative;
@@ -275,6 +287,30 @@
   letter-spacing: 0.08em;
   display: block;
 }
+=======
+  transition: var(--ease-spring);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.domain-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  opacity: 0;
+  transition: opacity .25s;
+}
+.domain-card:hover { transform: translateY(-6px) scale(1.02); border-color: var(--accent-1); box-shadow: var(--shadow-lg); }
+.domain-card:hover::before { opacity: .05; }
+.domain-card.active { border-color: var(--accent-1); background: var(--accent-subtle); }
+
+.domain-emoji { font-size: 2rem; position: relative; z-index: 1; transition: transform .25s; }
+.domain-card:hover .domain-emoji { transform: scale(1.15) rotate(-5deg); }
+
+.domain-name { font-size: .85rem; font-weight: 600; color: var(--text-primary); position: relative; z-index: 1; }
+.domain-count { font-size: .74rem; color: var(--text-muted); position: relative; z-index: 1; }
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
 /* ══════════════════════════════════════════════════
    4. HOME – COURSES GRID (Recommended)
@@ -476,6 +512,7 @@
 }
 .progress-pct { font-size: .72rem; font-weight: 600; color: var(--accent-1); white-space: nowrap; }
 
+<<<<<<< HEAD
 .continue-thumb-wrap {
   position: relative;
   width: 100px;
@@ -515,6 +552,8 @@
   opacity: 1;
 }
 
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 /* ══════════════════════════════════════════════════
    6. COURSES PAGE – LAYOUT
 ══════════════════════════════════════════════════ */
@@ -571,6 +610,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+<<<<<<< HEAD
   padding: var(--space-3) var(--space-4);
   cursor: pointer;
   border-radius: var(--radius-md);
@@ -617,6 +657,19 @@
 .tree-category-icon {
   font-size: 1.1rem;
 }
+=======
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: var(--ease-fast);
+  user-select: none;
+}
+.tree-category-header:hover { background: var(--bg-hover); }
+.tree-category-header.active { color: var(--accent-1); background: var(--accent-subtle); }
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
 .tree-caret {
   color: var(--text-muted);

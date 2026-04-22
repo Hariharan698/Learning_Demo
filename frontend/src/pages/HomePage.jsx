@@ -23,6 +23,7 @@ const DOMAIN_VIDEOS = {
   cybersec:    { url: 'https://www.youtube.com/watch?v=3Kq1MIfTWCE', label: 'Cyber Security Preview' },
 };
 
+<<<<<<< HEAD
 const DOMAIN_IMAGES = {
   webdev:      '/images/domains/webdev.png?v=1',
   datascience: '/images/domains/datascience.png?v=2',
@@ -34,6 +35,8 @@ const DOMAIN_IMAGES = {
   cybersec:    '/images/domains/cybersec.png?v=1',
 };
 
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 const TICKER_ITEMS = [
   { text: 'React 19 Server Components — New Session Added',   tag: 'New'      },
   { text: '10K+ enrolled in Python ML Bootcamp this week',    tag: 'Trending' },
@@ -47,9 +50,15 @@ const TICKER_ITEMS = [
 
 export default function HomePage() {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const { showToast, user, recentlyViewed } = useApp();
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [preview, setPreview] = useState(null); // { title, videoUrl, courseId, instructor }
+=======
+  const { showToast, user } = useApp();
+  const [selectedDomain, setSelectedDomain] = useState(null);
+  const [preview, setPreview] = useState(null); // { title, videoUrl }
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   const [showChat, setShowChat] = useState(false);
   const [showCert, setShowCert] = useState(false);
 
@@ -63,10 +72,17 @@ export default function HomePage() {
 
   const recommended = allCourses.slice(0, 6);
 
+<<<<<<< HEAD
   // Use real-time tracking for Continue Learning
   const inProgress = recentlyViewed.length > 0 ? recentlyViewed : [
     { _id:'c1', emoji:'⚛️', title:'React 19 & Next.js 15',      instructor:'Priya Sharma', progress:68, domain: 'webdev' },
     { _id:'c4', emoji:'🤖', title:'Generative AI & LLMs',        instructor:'Rahul Kapoor', progress:32, domain: 'ai' },
+=======
+  const inProgress = user?.inProgress || [
+    { courseId:'c1', emoji:'⚛️', title:'React 19 & Next.js 15',      instructor:'Priya Sharma', progress:68 },
+    { courseId:'c4', emoji:'🤖', title:'Generative AI & LLMs',        instructor:'Rahul Kapoor', progress:32 },
+    { courseId:'c5', emoji:'☁️',  title:'Kubernetes & Docker on AWS',  instructor:'Vikram Nair',  progress:15 },
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   ];
 
   const handleDomainClick = (domainId) => {
@@ -139,7 +155,11 @@ export default function HomePage() {
       <section className="section domain-section">
         <h2 className="section-title">Browse by Domain</h2>
         <p style={{ fontSize:'0.85rem', color:'var(--text-secondary)', marginBottom:'16px', marginTop:'-8px' }}>
+<<<<<<< HEAD
           Explore our wide range of expert-led courses across all major domains
+=======
+          Click any domain to filter courses and watch a preview clip
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
         </p>
         {domainsLoading ? (
           <LoadingGrid count={8} />
@@ -155,6 +175,7 @@ export default function HomePage() {
                 onKeyDown={e => e.key === 'Enter' && handleDomainClick(d.domainId)}
                 style={{ position: 'relative' }}
               >
+<<<<<<< HEAD
                 <div className="domain-thumb-wrap">
                   <img src={DOMAIN_IMAGES[d.domainId]} alt={d.name} className="domain-thumb" />
                   <div className="domain-overlay"></div>
@@ -162,6 +183,15 @@ export default function HomePage() {
                 <div className="domain-name-bar">
                   <span className="domain-name">{d.name}</span>
                 </div>
+=======
+                <div className="domain-emoji">{d.emoji}</div>
+                <div className="domain-name">{d.name}</div>
+                {/* Mini play icon */}
+                <div style={{
+                  position: 'absolute', bottom: 8, right: 8,
+                  fontSize: '0.65rem', opacity: 0.5,
+                }}>▶ preview</div>
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
               </div>
             ))}
           </div>
@@ -193,6 +223,7 @@ export default function HomePage() {
             {inProgress.map((c, i) => (
               <div
                 key={i} className="continue-card" role="listitem" tabIndex={0}
+<<<<<<< HEAD
                 onClick={() => {
                   if (c.videoUrl) {
                     setPreview({ 
@@ -210,14 +241,25 @@ export default function HomePage() {
                   <img src={DOMAIN_IMAGES[c.domain] || '/images/domains/webdev.png'} alt="" className="continue-thumb-img" />
                   <div className="continue-play-overlay">▶</div>
                 </div>
+=======
+                onClick={() => showToast(`▶️ Resuming ${c.title.slice(0,30)}…`, 'info')}
+              >
+                <div className="continue-thumb">{c.emoji}</div>
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                 <div className="continue-info">
                   <div className="continue-title">{c.title}</div>
                   <div className="continue-instructor">{c.instructor}</div>
                   <div className="progress-bar-wrap">
                     <div className="progress-bar">
+<<<<<<< HEAD
                       <div className="progress-fill" style={{ width: `${c.progress || 25}%` }}></div>
                     </div>
                     <span className="progress-pct">{c.progress || 25}%</span>
+=======
+                      <div className="progress-fill" style={{ width: `${c.progress}%` }}></div>
+                    </div>
+                    <span className="progress-pct">{c.progress}%</span>
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                   </div>
                 </div>
               </div>
@@ -231,8 +273,11 @@ export default function HomePage() {
         <VideoPreviewModal
           title={preview.title}
           videoUrl={preview.videoUrl}
+<<<<<<< HEAD
           courseId={preview.courseId}
           instructor={preview.instructor}
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
           onClose={() => setPreview(null)}
         />
       )}

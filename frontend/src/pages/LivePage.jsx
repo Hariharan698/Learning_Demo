@@ -126,13 +126,17 @@ export default function LivePage() {
   const [levelFilter, setLevelFilter] = useState([]);
   const [selected,    setSelected]    = useState(null);
   const [preview,     setPreview]     = useState(null); // { title, videoUrl }
+<<<<<<< HEAD
   const [showSurvey,  setShowSurvey]  = useState(false);
   const [pendingSession, setPendingSession] = useState(null);
   const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false);
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 
   const { data, loading } = useFetch('/api/live');
   const fetchedSessions = data?.data || [];
 
+<<<<<<< HEAD
   const handleJoinRequest = (s) => {
     if (!user) {
       showToast('Please sign in to join or watch previews', 'error');
@@ -161,6 +165,8 @@ export default function LivePage() {
     }
   };
 
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
   // Use API data if available, else static
   const allSessions = fetchedSessions.length > 0 ? fetchedSessions : STATIC_SESSIONS;
 
@@ -254,14 +260,31 @@ export default function LivePage() {
               sessions.map(s => (
                 <div
                   key={s._id}
+<<<<<<< HEAD
                   onClick={() => setSelected(s)}
+=======
+                  onClick={() => { 
+                    setSelected(s); 
+                    if (s.videoUrl) {
+                      if (!user) {
+                        showToast('Please sign in to watch previews', 'error');
+                        navigate('/login');
+                        return;
+                      }
+                      setPreview({ title: s.title, videoUrl: s.videoUrl }); 
+                    }
+                  }}
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                   style={{ cursor: 'pointer' }}
                 >
                   <SessionCard
                     session={s}
                     selected={displayedSelected?._id === s._id}
                     onSelect={setSelected}
+<<<<<<< HEAD
                     onJoin={handleJoinRequest}
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
                   />
                 </div>
               ))
@@ -287,13 +310,34 @@ export default function LivePage() {
                 Select a live session to see the AI-generated summary, key topics, and instructor insights.
               </p>
             ) : (
+<<<<<<< HEAD
               <AISummary session={displayedSelected} onJoin={handleJoinRequest} />
+=======
+              <AISummary session={displayedSelected} onJoin={(s) => {
+                if (!user) {
+                  showToast('Please sign in to join or watch previews', 'error');
+                  navigate('/login');
+                  return;
+                }
+                if (s.videoUrl) {
+                  setPreview({ title: s.title, videoUrl: s.videoUrl });
+                } else {
+                  showToast(
+                    s.status === 'live'
+                      ? `🔴 Joining "${s.title.slice(0,30)}…"`
+                      : `✅ Registered for "${s.title.slice(0,30)}…"`,
+                    'success'
+                  );
+                }
+              }} />
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
             )}
           </div>
         </aside>
 
       </div>
 
+<<<<<<< HEAD
       {/* Live Session Survey Modal */}
       {showSurvey && (
         <SurveyModal 
@@ -307,6 +351,8 @@ export default function LivePage() {
         />
       )}
 
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
       {/* Video preview modal */}
       {preview && (
         <VideoPreviewModal
@@ -319,6 +365,7 @@ export default function LivePage() {
   );
 }
 
+<<<<<<< HEAD
 /* ── Live Survey Modal ── */
 function SurveyModal({ user, onCancel, onComplete }) {
   const [formData, setFormData] = useState({
@@ -411,6 +458,8 @@ function SurveyModal({ user, onCancel, onComplete }) {
   );
 }
 
+=======
+>>>>>>> 419b5500e0a3026b9d8a634a65804bb6e355579d
 /* ── AI Summary Panel ── */
 function AISummary({ session, onJoin }) {
   return (
